@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true })); // Handle form data
 // Middleware
 app.use(cors());
 app.use(express.json()); // Parses incoming JSON requests
+app.use(express.urlencoded({ extended: true })); // Handle form data
 
 // Debugging: Check if API Key is loaded
 console.log("API Key Loaded:", process.env.OPENTRIPMAP_API_KEY ? "  Yes" : "❌ No");
@@ -27,7 +28,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("  MongoDB Connected Successfully!"))
+  .then(() => console.log("✅ MongoDB Connected Successfully!"))
   .catch((error) => {
     console.error("❌ MongoDB Connection Error:", error.message);
     process.exit(1); // Stop the server if DB connection fails
@@ -52,6 +53,8 @@ app.use("/uploads", express.static("uploads")); // Serve uploaded images
 
 const adminRoutes = require("./routes/admin");
 app.use('/api/admin', adminRoutes);
+
+app.use("/api/itineraries", require("./routes/itineraryRoutes"));
 
 app.get("/api/destinations", (req, res) => {
   res.json({ message: "Destinations API is working!" });

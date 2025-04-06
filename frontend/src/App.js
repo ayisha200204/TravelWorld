@@ -8,11 +8,12 @@ import Profile from "./pages/Profile";
 import TripPlanner from "./pages/TripPlanner";
 import Itinerary from "./pages/Itinerary";
 import Feedback from "./pages/Feedback";
-//import DestinationSearch from "./pages/DestinationSearch";
 import Gallery from "./pages/Gallery";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AdminDashboard from './pages/admin/AdminDashboard';
+import SavedItinerary from "./components/SavedItinerary";
+
 import "./App.css";
 
 function App() {
@@ -29,9 +30,9 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/trip-planner" element={<TripPlanner />} />
               <Route path="/itinerary/:id" element={<Itinerary />} />
-              
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/gallery" element={<Gallery />} />
+              <Route path="/saved-itinerary/:id" element={<SavedItinerary />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
             </Routes>
           </div>
