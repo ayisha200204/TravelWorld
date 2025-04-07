@@ -4,8 +4,6 @@ const Trip = require("../models/tripModel");
 const axios = require("axios");   
 const mongoose = require("mongoose"); 
 
-
-
 /**
  * Generate an itinerary based on user preferences
  */
@@ -48,7 +46,7 @@ const createItineraryFromTrip = async (req, res) => {
         }
 
         const { destination, startDate, endDate, interests, budget } = trip;
-        if (!destination || !startDate || !endDate || !budget) {
+        if (!destination || !startDate || !endDate || !budget || !interests || interests.length === 0) {
             return res.status(400).json({ message: "Trip details are incomplete." });
         }
 
@@ -66,39 +64,63 @@ const createItineraryFromTrip = async (req, res) => {
         const { lat, lon } = locationData;
         console.log("Fetching places for:", { lat, lon, interests });
 
-        let places = await fetchPlaces(lat, lon, interests);
+        const allPlacesByInterest = {};
 
-        if (places.length < 5) {
-            return res.status(404).json({ message: "Not enough places found." });
+        // 🔄 Fetch and filter places for each interest
+        for (const interest of interests) {
+            let interestPlaces = await fetchPlaces(lat, lon, [interest]);
+
+            // 🧹 Budget-based filtering
+            if (budget === "low") {
+                interestPlaces = interestPlaces.filter(place =>
+                    !place.properties.kinds.includes("shops") &&
+                    !place.properties.kinds.includes("theatres_and_entertainments")
+                );
+            } else if (budget === "medium") {
+                interestPlaces = interestPlaces.filter(place =>
+                    !place.properties.kinds.includes("theatres_and_entertainments")
+                );
+            }
+
+            // 🔀 Shuffle to avoid repeated categories each day
+            allPlacesByInterest[interest] = interestPlaces.sort(() => 0.5 - Math.random());
         }
 
-        // Apply budget filters
-        let placesPerDay = 5; // default
-
-        if (budget === "low") {
-            placesPerDay = 3;
-            places = places.filter(place =>
-                !place.properties.kinds.includes("shops") &&
-                !place.properties.kinds.includes("theatres_and_entertainments")
-            );
-        } else if (budget === "medium") {
-            placesPerDay = 4;
-            places = places.filter(place =>
-                !place.properties.kinds.includes("theatres_and_entertainments")
-            );
-        } else if (budget === "high") {
-            placesPerDay = 5; // No filter
-        }
-
-        if (places.length < placesPerDay) {
-            return res.status(404).json({ message: "Not enough suitable places found for the selected budget." });
-        }
-
-        // Structure itinerary
+        // ✅ Create balanced itinerary
         const numDays = Math.max(1, Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)));
+        const maxPlacesPerDay = budget === "low" ? 3 : budget === "medium" ? 4 : 5;
         const itinerary = {};
+
         for (let i = 0; i < numDays; i++) {
-            itinerary[`Day ${i + 1}`] = places.splice(0, placesPerDay);
+            const dayKey = `Day ${i + 1}`;
+            itinerary[dayKey] = [];
+
+            let placeCount = 0;
+
+            // 1. Try to pick one place from each interest
+            for (const interest of interests) {
+                const interestPlaces = allPlacesByInterest[interest] || [];
+                if (interestPlaces.length > 0 && placeCount < maxPlacesPerDay) {
+                    const place = interestPlaces.shift();
+                    itinerary[dayKey].push(place);
+                    placeCount++;
+                }
+            }
+
+            // 2. Fill remaining with any leftover places from any interest
+            while (placeCount < maxPlacesPerDay) {
+                for (const interest of interests) {
+                    const interestPlaces = allPlacesByInterest[interest] || [];
+                    if (interestPlaces.length > 0 && placeCount < maxPlacesPerDay) {
+                        const place = interestPlaces.shift();
+                        itinerary[dayKey].push(place);
+                        placeCount++;
+                    }
+                }
+                // Break loop if no more places left
+                const totalRemaining = interests.reduce((sum, i) => sum + (allPlacesByInterest[i]?.length || 0), 0);
+                if (totalRemaining === 0) break;
+            }
         }
 
         const savedItinerary = new Itinerary({
@@ -109,6 +131,7 @@ const createItineraryFromTrip = async (req, res) => {
             endDate,
             days: itinerary,
         });
+
         await savedItinerary.save();
 
         res.status(201).json({ itineraryId: savedItinerary._id });
@@ -117,6 +140,7 @@ const createItineraryFromTrip = async (req, res) => {
         res.status(500).json({ message: "Failed to create itinerary." });
     }
 };
+
 
 
 /**

@@ -15,22 +15,22 @@ export const destinations = [
       },
       {
         name: 'Basilica of Bom Jesus',
-        image: 'https://images.unsplash.com/photo-1558432217-c1b1d1f15512?auto=format&fit=crop&q=80',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Basilica_of_bom_jesus_-_Front_View.jpg ',
         description: 'A UNESCO World Heritage site, this 16th-century church houses the mortal remains of St. Francis Xavier and showcases stunning Portuguese architecture.'
       },
       {
         name: 'Fort Aguada',
-        image: 'https://images.unsplash.com/photo-1623690547248-af1ad6dca9d4?auto=format&fit=crop&q=80',
+        image: 'https://imgcdn.flamingotravels.co.in/Images/PlacesOfInterest/Fort-Aguada.jpg',
         description: 'This 17th-century Portuguese fort offers panoramic views of the Arabian Sea and features a four-story lighthouse, the oldest of its kind in Asia.'
       },
       {
         name: 'Dudhsagar Falls',
-        image: 'https://images.unsplash.com/photo-1580289543171-661f4d144091?auto=format&fit=crop&q=80',
+        image: 'https://belezagoa.com/wp-content/uploads/2021/03/Dudhsagar-Falls.jpg',
         description: 'One of India\'s tallest waterfalls at 310m, located in the Bhagwan Mahavir Wildlife Sanctuary. The name means "Sea of Milk" due to its white water cascade.'
       },
       {
         name: 'Anjuna Flea Market',
-        image: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?auto=format&fit=crop&q=80',
+        image: 'https://cdn.abhibus.com/2024/06/Anjuna-Flea-Market-North-Goa.jpg',
         description: 'A vibrant Wednesday market featuring handicrafts, clothes, jewelry, and spices. Experience Goa\'s hippie culture and bargain with local vendors.'
       }
     ]
@@ -43,7 +43,7 @@ export const destinations = [
     places: [
       {
         name: 'Male City',
-        image: 'https://images.unsplash.com/photo-1590080669222-7882fda3c595?auto=format&fit=crop&q=80',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Mal%C3%A9.jpg/1599px-Mal%C3%A9.jpg',
         description: 'The bustling capital city features colorful buildings, traditional markets, and the historic Friday Mosque, built in 1658 from coral stone.'
       },
       {
@@ -58,12 +58,12 @@ export const destinations = [
       },
       {
         name: 'Hulhumale Beach',
-        image: 'https://images.unsplash.com/photo-1578922746633-0f448256ece1?auto=format&fit=crop&q=80',
+        image: 'https://images.wanderon.in/blogs/new/2024/05/how-to-reach-maldives-hulhumale-island-min.jpg',
         description: 'A pristine artificial beach with calm waters, perfect for swimming and water sports. Enjoy spectacular sunsets and beachside dining.'
       },
       {
         name: 'National Museum',
-        image: 'https://images.unsplash.com/photo-1590080876477-fa40830fe6f9?auto=format&fit=crop&q=80',
+        image: 'https://images.wanderon.in/blogs/new/2024/11/national-museum-maldives.jpg',
         description: 'Housing royal artifacts, ancient weapons, and cultural treasures, the museum offers insights into Maldivian history and heritage.'
       }
     ]
@@ -76,12 +76,12 @@ export const destinations = [
     places: [
       {
         name: 'Eiffel Tower',
-        image: 'https://images.unsplash.com/photo-1543349689-9a4d426bee8e?auto=format&fit=crop&q=80',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Eiffel_Tower_20051010.jpg/1595px-Eiffel_Tower_20051010.jpg',
         description: 'The iconic 324m-tall wrought iron tower offers breathtaking views of Paris. Visit at night to see the spectacular light show.'
       },
       {
         name: 'Louvre Museum',
-        image: 'https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?auto=format&fit=crop&q=80',
+        image: 'https://www.aparisguide.com/louvre/louvre-museum001.jpg',
         description: 'Home to thousands of works of art including the Mona Lisa, this former royal palace is the world\'s largest art museum.'
       },
       {
@@ -96,7 +96,7 @@ export const destinations = [
       },
       {
         name: 'Montmartre',
-        image: 'https://images.unsplash.com/photo-1551887373-3c5bd224f6e2?auto=format&fit=crop&q=80',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Basilique_du_Sacr%C3%A9_C%C5%93ur_de_Montmartre_%40_Paris_%2834188687416%29.jpg/1599px-Basilique_du_Sacr%C3%A9_C%C5%93ur_de_Montmartre_%40_Paris_%2834188687416%29.jpg',
         description: 'A charming hilltop neighborhood known for the white Sacré-Cœur basilica, artists\' square, and stunning city views.'
       }
     ]
